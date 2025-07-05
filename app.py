@@ -39,3 +39,16 @@ async def chat(query: Query):
     response_text = model.invoke(prompt)
     sources = [doc.metadata.get("source", None) for doc, _ in results]
     return {"response": response_text, "sources": sources}
+
+from fastapi.middleware.cors import CORSMiddleware
+
+app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # For production, replace "*" with "https://datifynuro.se"
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
